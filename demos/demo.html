@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="copyright" content="Epistemex">
+
+	<title>2D Affine Transformation Matrix demo</title>
+
+	<style>
+		body {
+			background:#bbb;
+			color:#555;
+			font-family:sans-serif;
+			}
+		#container {width:600px;margin:0 auto}
+		#canvas {background:#e4e4e4}
+		footer {margin:16px 0 0 12px}
+		img {float:right}
+	</style>
+</head>
+<body>
+
+	<div id="container">
+		<header>
+			<h2>2D Affine Transformation Matrix</h2>
+		</header>
+
+		<div id="main">
+			<p>Synchronizing a canvas context by applying various transformations,
+			then apply those to four points for a rectangle.</p>
+			<p>The manually transformed rectangle is drawn on top in blue transparent of the canvas transformed
+			rectangle in red to show they are in perfect sync.</p>
+			<canvas id="canvas" width="600" height="400" style="border:1px solid #000">
+				<h1>Sorry, need a modern browser...</h1>
+			</canvas>
+		</div>
+
+		<footer>
+			<img src="data:image/png;base64,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">
+		</footer>
+	</div> 	<!-- container -->
+
+<script src="../matrix.min.js"></script>
+<script>
+
+	var canvas = document.getElementById('canvas'),
+		ctx = canvas.getContext('2d'),
+		rect = [{x: 100, y: 100}, {x: 900, y: 100}, {x: 900, y: 400}, {x: 100, y: 400}],
+		matrix = new Matrix(ctx),
+		y = 20;
+
+	// apply various transformations (context is synced by class)
+	matrix
+		.scale(1.2, 1.2)
+		.rotate(0.7)
+		.translate(20, 20)
+		.scale(0.5, 0.5)
+		.shear(0.5, 0)
+		.translate(100, -220)
+		.rotate(-0.3);
+
+	// apply transform to our point array
+	rect = matrix.applyToArray(rect);
+
+	// draw canvas transformed rectangle
+	ctx.strokeStyle = '#f00';
+	ctx.lineWidth = 2;
+	ctx.strokeRect(100, 100, 800, 300);
+
+	// draw custom transformed rectangle
+	ctx.setTransform(1, 0, 0, 1, 0, 0); // reset for demo so transforms don't accumulate
+	ctx.strokeStyle = 'rgba(0,0,255,0.5)';
+	ctx.moveTo(rect[0].x, rect[0].y);
+	ctx.lineTo(rect[1].x, rect[1].y);
+	ctx.lineTo(rect[2].x, rect[2].y);
+	ctx.lineTo(rect[3].x, rect[3].y);
+	ctx.closePath();
+	ctx.stroke();
+
+	// print transformation details
+	ctx.translate(0, 250);
+	ctx.font = '14px sans-serif';
+	ctx.fillText('matrix.scale(1.2, 1.2);', 20, nxy());
+	ctx.fillText('matrix.rotate(0.7);', 20, nxy());
+	ctx.fillText('matrix.translate(20, 20);', 20, nxy());
+	ctx.fillText('matrix.scale(0.5, 0.5);', 20, nxy());
+	ctx.fillText('matrix.shear(0.5, 0);', 20, nxy());
+	ctx.fillText('matrix.translate(100, -220);', 20, nxy());
+	ctx.fillText('matrix.rotate(-0.3);', 20, nxy());
+
+	function nxy() {y+=16;return y}
+
+</script>
+</body>
+</html>
